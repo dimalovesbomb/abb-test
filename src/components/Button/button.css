@@ -1,0 +1,17 @@
+.button {
+    margin-right: 10px;
+    padding: 10px;
+    background-color: rgba(181, 181, 188, 0.3);
+    border: 1px transparent;
+    border-radius: 5px;
+}
+
+.button[data-active="true"] {
+    background-color: rgb(181, 181, 188);
+}
+
+@media (min-width: 320px) and (max-width: 425px) {
+    .button {
+        padding: 5px;
+    }
+}

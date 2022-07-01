@@ -1,0 +1,23 @@
+.table {
+    width: 90%;
+    border-collapse: collapse;
+}
+
+.table-body__tr:not(:last-child) {
+    border-bottom: 1px solid rgba(11,31,53,.1);
+}
+
+.table-body__td__p {
+    text-align: center;
+}
+
+@media (min-width: 320px) and (max-width: 375px) {
+    .table-header__item {
+        font-size: 0.7rem;
+    }
+
+    .table-body__td__p {
+        font-size: 0.5rem;
+    }
+}
+

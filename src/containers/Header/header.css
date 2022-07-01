@@ -1,0 +1,27 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 10vw;
+}
+
+.app-header {
+    font-size: 2rem;
+    width: calc( 100% - 65px );
+    text-align: center;
+}
+
+@media (min-width: 320px) and (max-width: 510px) {
+    .app-header {
+        font-size: 1.4rem;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 425px) {
+    .header {
+        margin: 0 5vw;
+    }
+    .app-header {
+        font-size: 1rem;
+        /* margin-left: 5vw; */
+    }
+}

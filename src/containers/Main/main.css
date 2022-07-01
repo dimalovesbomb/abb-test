@@ -1,0 +1,43 @@
+.main {
+    width: 100%;
+    margin-top: 15vh;
+}
+
+.exchange {
+    display: flex;
+    width: 80%;
+    margin: 0 auto;
+    /* justify-content: center; */
+    background-color: rgb(195, 200, 208);
+    border: 1px transparent;
+    border-radius: 10px;
+}
+
+.exchange__left, .exchange__right {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding: 2rem;
+}
+
+.exchange__right {
+    background-color: rgb(231, 234, 240);
+    border: 1px transparent;
+    border-radius: 10px;
+}
+
+@media (min-width: 320px) and (max-width: 768px) {
+    .exchange {
+        flex-direction: column;
+        max-width: 80vw;
+    }
+
+    .exchange__left, .exchange__right {
+        width: 100%;
+        padding: .7rem;
+    }
+
+    .exchange-right__h2 {
+        font-size: 1.2rem;
+    }
+}
