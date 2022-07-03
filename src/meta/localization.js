@@ -7,6 +7,7 @@ export const localization = {
         currency: 'Валюта',
         exchangeRate: 'Курс обмена',
         total: 'Итого',
+        noData: 'Введите сумму',
         notGoodDesigner: 'Извиняюсь, дизайнер из меня плох',
     },
     en: {
@@ -17,6 +18,7 @@ export const localization = {
         currency: 'Currency',
         exchangeRate: 'Exchange rate',
         total: 'Total',
+        noData: 'Enter amount',
         notGoodDesigner: `Sorry, I'm not such a good designer`,
     },
 };

@@ -1,10 +1,9 @@
 import { LanguageContext } from '../../App';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState, useRef, useEffect } from 'react';
 import { Input } from '../../components/Input/Input';
 import { CurrencyButtons } from '../../components/CurrencyButtons/CurrencyButtons';
 import { CurrencyTable } from '../../components/CurrencyTable/CurrencyTable';
-import { allRequestCurrencies } from '../../meta/allRequestCurrencies';
-import { convert } from '../../http';
+import { getData } from '../../http';
 import './main.css';
 
 export const Main = () => {
@@ -12,33 +11,33 @@ export const Main = () => {
     const [value, setValue] = useState('10000');
     const [activeCurrency, setActiveCurrency] = useState('amd');
     const [results, setResults] = useState([]);
+    let debounceTimeout;
 
     useEffect(() => {
-        debouncedRequest(value, activeCurrency);
+        async function init() {
+            setResults(await getData(value, activeCurrency));
+        }
+        init();
     }, []);
 
-    const debouncedRequest = (amount, currency) => {
-        setTimeout(async () => {
-            const requestCurrencies = allRequestCurrencies.filter(
-                curr => curr !== currency
-            );
-            const promises = requestCurrencies.map(curr => {
-                return convert(amount, currency, curr);
-            });
-            const data = await Promise.all(promises);
-            const isSuccess = data.every(el => el.success);
+    const debouncedGetData = useRef(value => {
+        clearTimeout(debounceTimeout);
+        if (!value) {
+            setResults([]);
+            return;
+        }
 
-            if (isSuccess) {
-                setResults(data);
-            }
-        }, 500);
-    };
+        debounceTimeout = setTimeout(async () => {
+            const data = await getData(value, activeCurrency);
+            setResults(data);
+        }, 1000);
+    }).current;
 
-    const onCurrencyChange = e => {
+    const onCurrencyChange = async e => {
         setActiveCurrency(e.target.id);
 
         if (value) {
-            debouncedRequest(value, e.target.id);
+            setResults(await getData(value, e.target.id));
         }
     };
 
@@ -46,7 +45,7 @@ export const Main = () => {
         if (Number.isNaN(+e.target.value)) return;
 
         setValue(e.target.value);
-        debouncedRequest(e.target.value, activeCurrency);
+        debouncedGetData(e.target.value);
     };
 
     return (
@@ -65,10 +64,19 @@ export const Main = () => {
                     />
                 </div>
                 <div className="exchange__right">
-                    <h2 className="exchange-right__h2">
-                        {localization.iWillGet}
-                    </h2>
-                    <CurrencyTable data={results} />
+                    {results.length ? (
+                        <>
+                            <h2 className="exchange-right__h2">
+                                {localization.iWillGet}
+                            </h2>
+                            <CurrencyTable data={results} />
+                        </>
+                    ) : (
+                        <>
+                            <h3>{localization.noData}</h3>
+                            <p>💸</p>
+                        </>
+                    )}
                 </div>
             </div>
         </main>

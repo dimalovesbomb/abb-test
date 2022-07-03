@@ -7,7 +7,6 @@
     display: flex;
     width: 80%;
     margin: 0 auto;
-    /* justify-content: center; */
     background-color: rgb(195, 200, 208);
     border: 1px transparent;
     border-radius: 10px;
@@ -24,6 +23,10 @@
     background-color: rgb(231, 234, 240);
     border: 1px transparent;
     border-radius: 10px;
+}
+
+.exchange__right h3, .exchange__right p {
+    text-align: center;
 }
 
 @media (min-width: 320px) and (max-width: 768px) {
